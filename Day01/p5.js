@@ -2,7 +2,7 @@ const fs = require('fs');
 
 console.log("this is before fucntion declaration")
 const write = () => {
-    const data = "I am new data from the function";
+    const data = "I am new data from the function p5";
     fs.writeFile('./data.txt', data, 'utf8', (err) => {
         if (err)
             console.log("Error:", err);
