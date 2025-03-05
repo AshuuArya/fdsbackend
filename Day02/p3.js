@@ -1,10 +1,12 @@
-const http = require('http');
-
-const server = http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end(`<h1 style='background-color: blue; color: white;'>Hello jii</h1>`);
+const http=require('http');
+const fs=require('fs/promises');
+const server=http.createServer(async (req,res) => {
+    res.statusCode=200;
+    res.setHeader('Content-Type', 'text/html');
+    const data=await fs.readFile("./index.html");
+    res.end(data);
 });
 
-server.listen(9001, () => {
-    console.log('Server running on port number 9001.');
+server.listen(9000, () => {
+    console.log('Server is running at http://localhost:9000/');
 });

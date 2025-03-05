@@ -1,20 +1,18 @@
-const htpp = require('http')
+const http = require('http');
 
-const server = htpp.createServer((req,res) => {
-    res.writeHead(200, {'content-type' : 'application/jason'});
-
-    let dara = {
-        name: "JHON doe",
-        age: 30
-    }
-
-    if (req.url === '/data' && req.method === 'GET') {
-        res.end({message: 'data recieved'})
-    } else if (req.url ==='/setdata' && req.method === 'POST') {
-        res.end({message: 'data recieved'})
-    }
+const server = http.createServer(async(req, res) => {
+    const data = await fetch("https://dummyjson.com/products");
+    const jsonData = await data.json();
+    const products= jsonData.products;
+    res.writeHead(200,{"content-type": "application/json"})
+    const titles=products.map((ele) =>{
+        return ele.title;
+    });
+    res.end(JSON.stringify(titles));
 })
 
-server.listen(9004, () => {
-    console.log('Server is running on port 9004');
+server.listen(9000, (err) => {
+    if (err) throw err;
+    else
+    console.log('Server is running at http://localhost:9000');
 });
